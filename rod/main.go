@@ -10,11 +10,13 @@ import (
 	"log"
 	"runtime"
 	"strings"
+	"time"
 )
 
 var Browser *rod.Browser
 
 func main() {
+	startTime := time.Now()
 	// Initialize the browser
 	openBrowser()
 	defer Browser.Close()
@@ -35,6 +37,9 @@ func main() {
 	}
 
 	fmt.Printf("Number of times selling price was empty: %d\n", emptyCount)
+
+	duration := time.Since(startTime)
+	fmt.Println("Program takes:", duration, "⚡")
 }
 
 func crawlSite(url string) (*goquery.Document, *rod.Page, error) {
@@ -46,7 +51,7 @@ func crawlSite(url string) (*goquery.Document, *rod.Page, error) {
 		return nil, nil, fmt.Errorf("error setting user agent: %w", err)
 	}
 
-	rodPage.MustNavigate(url).MustWaitLoad()
+	rodPage.MustNavigate(url).MustWaitStable()
 
 	pageData, err := GetDom(rodPage)
 	if err != nil {

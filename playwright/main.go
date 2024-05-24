@@ -5,9 +5,11 @@ import (
 	"github.com/playwright-community/playwright-go"
 	"github.com/uzzalhcse/crawlme/common"
 	"log"
+	"time"
 )
 
 func main() {
+	startTime := time.Now()
 	pw, err := playwright.Run()
 	handleError(err)
 	defer pw.Stop()
@@ -22,6 +24,9 @@ func main() {
 	defer page.Close()
 
 	checkPriceMultipleTimes(page, common.URL, common.ATTEMPTS)
+
+	duration := time.Since(startTime)
+	fmt.Println("Program takes:", duration, "⚡")
 }
 
 func launchBrowser(pw *playwright.Playwright, headless bool) (playwright.Browser, error) {
