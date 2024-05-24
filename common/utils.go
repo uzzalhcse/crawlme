@@ -13,8 +13,9 @@ func HandleError(err error) {
 }
 
 // UserAgent is a common variable representing a default user agent string.
-const UserAgent = "AdvancedRestClient/16.0.4 (Windows NT 10.0; Win64; x64)"
+const UserAgent = "PostmanRuntime/7.37.3"
 const URL = "https://axel.as-1.co.jp/asone/d/4-2151-01/?cfrom=A0010100"
+const ATTEMPTS = 50
 
 func GetSellingPrice(dom *goquery.Document) string {
 	return dom.Find(".af-price.price").Text()

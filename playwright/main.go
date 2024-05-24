@@ -21,7 +21,7 @@ func main() {
 	handleError(err)
 	defer page.Close()
 
-	checkPriceMultipleTimes(page, common.URL, 20)
+	checkPriceMultipleTimes(page, common.URL, common.ATTEMPTS)
 }
 
 func launchBrowser(pw *playwright.Playwright, headless bool) (playwright.Browser, error) {

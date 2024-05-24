@@ -19,7 +19,7 @@ func main() {
 	openBrowser()
 	defer Browser.Close()
 	emptyCount := 0
-	for i := 0; i < 20; i++ {
+	for i := 0; i < common.ATTEMPTS; i++ {
 		dom, page, err := crawlSite(common.URL)
 		if err != nil {
 			log.Printf("Error in crawlSite on attempt %d: %v", i+1, err)
@@ -27,9 +27,9 @@ func main() {
 		}
 		defer page.Close()
 
-		sellingPrice := common.GetSellingPrice(dom)
-		fmt.Printf("%d sellingPrice: %v\n", i+1, sellingPrice)
-		if sellingPrice == "" {
+		price := common.GetSellingPrice(dom)
+		fmt.Printf("(%d) Price: %v\n", i+1, price)
+		if price == "" {
 			emptyCount++
 		}
 	}
